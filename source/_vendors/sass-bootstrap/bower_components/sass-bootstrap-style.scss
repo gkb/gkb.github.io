@@ -1,0 +1,8 @@
+$icon-font-rel-src-path : "sass-bootstrap/bower_components/sass-bootstrap/fonts/";
+$icon-font-name         : "glyphicons-halflings-regular";
+$icon-font-basename     : $icon_font_rel_src_path + $icon_font_name;
+$glyphicon-eot-file     : asset-path($icon-font-basename + ".eot");
+$glyphicon-woff-file    : asset-path($icon-font-basename + ".woff");
+$glyphicon-ttf-file     : asset-path($icon-font-basename + ".ttf");
+$glyphicon-svg-file     : asset-path($icon-font-basename + ".svg");
+@import "sass-bootstrap/lib/custom-bootstrap";

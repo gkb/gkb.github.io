@@ -1,0 +1,12 @@
+@mixin embed-font($font-name, $font-filepath-and-name){
+  @font-face {
+    font-family: $font-name;
+    src: url(asset-path($font-filepath-and-name+".eot")); /* IE9 Compat Modes */
+    src: url(asset-path($font-filepath-and-name+".eot?#iefix")) format('embedded-opentype'), /* IE6-IE8 */
+         url(asset-path($font-filepath-and-name+".woff")) format('woff'), /* Modern Browsers */
+         url(asset-path($font-filepath-and-name+".ttf"))  format('truetype'), /* Safari, Android, iOS */
+         url(asset-path($font-filepath-and-name+".svg#svgFontName")) format('svg'); /* Legacy iOS */
+    }
+}
+@import "sass-bootstrap/lib/variables";
+@import "sass-bootstrap/lib/bootstrap";

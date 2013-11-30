@@ -1,0 +1,11 @@
+#= require vendor/jquery-1.10.2
+#= require bootstrap/dist/js/bootstrap
+#= require vendor/modernizr-2.0
+#= require vendor/jqBootstrapValidation-1.3.7
+#= require vendor/lunr
+#= require vendor/mustache
+#= require vendor/date.format
+#= require vendor/URI
+#= require vendor/jquery.lunr.search
+#= require vendor/search-helper
+#= require vendor/mail-helper
