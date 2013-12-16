@@ -13,10 +13,14 @@ Bootpress is [Jekyll](https://github.com/mojombo/jekyll) blogging combined with 
 ## How is this different from Octopress?
 Bootpress is more opinionated than Octopress
 1. Uses Bootstrap exclusively for both defaults and customization
-2. Provides asset management using Jekyll-assets
-3. Includes a robust client side type-ahead search facility using lunr.js
-4. Provides a safe and robust way for the blog creator to include contact
-   information on the site
+2. Includes the Sass source files for Bootstrap and a pre-configured set
+   of themes from Bootswatch-Sass
+3. Provides asset management using Jekyll-assets
+4. Uses Sprockets for asset compilation and does not rely on Compass
+5. Utilizes [Bourbon](http://bourbon.io/) as a library for its lightweight feel
+5. Includes inline search facility from the navbar using lunr.js
+6. Provides a safe and robust way for the blog creator to include personal or
+   business email on the site
 
 ## Todos
 1. Make the search box in the nav bar and the contact popover responsive
