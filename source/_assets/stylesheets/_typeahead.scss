@@ -1,0 +1,97 @@
+@import "bourbon/bourbon";
+
+// Container sizes
+// Taken from bootstrap
+// --------------------------------------------------
+$grid-gutter-width:            30px !default;
+
+// Small screen / tablet
+$container-tablet:             ((720px + $grid-gutter-width)) !default;
+$container-sm:                 $container-tablet !default;
+
+// Medium screen / desktop
+$container-desktop:            ((940px + $grid-gutter-width)) !default;
+$container-md:                 $container-desktop !default;
+
+// Large screen / wide desktop
+$container-large-desktop:      ((1140px + $grid-gutter-width)) !default;
+$container-lg:                 $container-large-desktop !default;
+
+.typeahead,
+.tt-query,
+.tt-hint {
+  @media (max-width: $container-md) {
+    width: 100%;
+  }
+  @media (min-width: $container-md) {
+    width: 396px;
+  }
+  height: 30px;
+  padding: 5px 12px;
+  margin-top: 10px;
+  margin-bottom: 6px;
+  font-size: 14px;
+  line-height: 20px;
+  border: 1px solid #cccccc;
+  border-radius: 5px;
+  &:focus {
+    outline-width: 0px;
+    border-color: #66afe9;
+    outline: 0;
+    box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(102, 175, 233, 0.6);
+    .has-warning {
+      border-color: #a47e3c;
+      box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 6px #dbc59e;
+    }
+    .has-error {
+      border-color: #953b39;
+      box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 6px #d59392;
+    }
+    .has-success {
+      border-color: #356635;
+      box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 6px #7aba7b;
+    }
+  }
+  @include placeholder {
+    color: #999999;
+  }
+}
+
+.tt-query[disabled], .tt-query[readonly], fieldset[disabled] .tt-query {
+  cursor: not-allowed;
+  background-color: #eeeeee;
+}
+
+.tt-dropdown-menu {
+  min-width: 250px;
+  width: 100%;
+  margin-top: 2px;
+  padding: 5px 0;
+  background-color: #fff;
+  border: 1px solid rgba(0,0,0,.2);
+  *border-right-width: 2px;
+  *border-bottom-width: 2px;
+  border-radius: 5px;
+  box-shadow: 0 5px 10px rgba(0,0,0,.2);
+  background-clip: padding-box;
+}
+
+.tt-result {
+  display: block;
+  padding: 3px 20px;
+  & + .tt-result {
+    border-top: 1px solid #ccc;
+  }
+  &.tt-is-under-cursor {
+    color: #fff;
+    background-color: #0081c2;
+    @include linear-gradient(to bottom, #0088cc, #0077b3);
+    background-repeat: repeat-x;
+    a {
+      color: #fff;
+    }
+  }
+  p {
+    margin: 0;
+  }
+}

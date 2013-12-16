@@ -1,6 +1,5 @@
-@import url(asset_path("sass-bootstrap/bower_components/sass-bootstrap-style"));
-@import url(asset_path("screen"));
-
+@import "sass-bootstrap/bower_components/sass-bootstrap-style";
+@import "screen";
 @import "typeahead";
 
 .navbar-collapse .popover-content {
