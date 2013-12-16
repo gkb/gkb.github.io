@@ -33,39 +33,34 @@ server_port     = "4000"      # port for preview server eg. localhost:4000
 desc "Generate jekyll site"
 task :generate do
   puts "## Generating Site with Jekyll"
-  system "compass compile --css-dir #{source_dir}/_assets/stylesheets"
   system "jekyll"
 end
 
 desc "Watch the site and regenerate when it changes"
 task :watch do
-  puts "Starting to watch source with Jekyll and Compass."
-  system "compass compile --css-dir #{source_dir}/_assets/stylesheets" unless File.exist?("#{source_dir}/_assets/stylesheets/screen.css")
-  jekyllPid = Process.spawn({"OCTOPRESS_ENV"=>"preview"}, "jekyll --auto")
-  compassPid = Process.spawn("compass watch")
+  puts "Starting to watch source with Jekyll."
+  jekyllPid = Process.spawn({"OCTOPRESS_ENV"=>"preview"}, "jekyll")
 
   trap("INT") {
-    [jekyllPid, compassPid].each { |pid| Process.kill(9, pid) rescue Errno::ESRCH }
+    Process.kill(9, jekyllPid) rescue Errno::ESRCH
     exit 0
   }
 
-  [jekyllPid, compassPid].each { |pid| Process.wait(pid) }
+  Process.wait(jekyllPid)
 end
 
 desc "preview the site in a web browser"
 task :preview do
   puts "Starting to watch source with Jekyll and Compass. Starting Rack on port #{server_port}"
-  system "compass compile --css-dir #{source_dir}/_assets/stylesheets" unless File.exist?("#{source_dir}/_assets/stylesheets/screen.css")
-  jekyllPid = Process.spawn({"OCTOPRESS_ENV"=>"preview"}, "jekyll --auto")
-  compassPid = Process.spawn("compass watch")
+  jekyllPid = Process.spawn({"OCTOPRESS_ENV"=>"preview"}, "jekyll")
   rackupPid = Process.spawn("rackup --port #{server_port}")
 
   trap("INT") {
-    [jekyllPid, compassPid, rackupPid].each { |pid| Process.kill(9, pid) rescue Errno::ESRCH }
+    [jekyllPid, rackupPid].each { |pid| Process.kill(9, pid) rescue Errno::ESRCH }
     exit 0
   }
 
-  [jekyllPid, compassPid, rackupPid].each { |pid| Process.wait(pid) }
+  [jekyllPid, rackupPid].each { |pid| Process.wait(pid) }
 end
 
 # usage rake new_post[my-new-post] or rake new_post['my new post'] or rake new_post (defaults to "new-post")
@@ -151,38 +146,6 @@ task :clean do
   rm_rf [".pygments-cache/**", ".gist-cache/**", ".sass-cache/**", "source/_assets/stylesheets/screen.css"]
 end
 
-desc "Move sass to sass.old, install sass theme updates, replace sass/custom with sass.old/custom"
-task :update_style, :theme do |t, args|
-  theme = args.theme || 'classic'
-  if File.directory?("sass.old")
-    puts "removed existing sass.old directory"
-    rm_r "sass.old", :secure=>true
-  end
-  mv "sass", "sass.old"
-  puts "## Moved styles into sass.old/"
-  cp_r "#{themes_dir}/"+theme+"/sass/", "sass"
-  cp_r "sass.old/custom/.", "sass/custom"
-  puts "## Updated Sass ##"
-end
-
-desc "Move source to source.old, install source theme updates, replace source/_includes/navigation.html with source.old's navigation"
-task :update_source, :theme do |t, args|
-  theme = args.theme || 'classic'
-  if File.directory?("#{source_dir}.old")
-    puts "## Removed existing #{source_dir}.old directory"
-    rm_r "#{source_dir}.old", :secure=>true
-  end
-  mkdir "#{source_dir}.old"
-  cp_r "#{source_dir}/.", "#{source_dir}.old"
-  puts "## Copied #{source_dir} into #{source_dir}.old/"
-  cp_r "#{themes_dir}/"+theme+"/source/.", source_dir, :remove_destination=>true
-  cp_r "#{source_dir}.old/_includes/custom/.", "#{source_dir}/_includes/custom/", :remove_destination=>true
-  cp "#{source_dir}.old/favicon.png", source_dir
-  mv "#{source_dir}/index.html", "#{blog_index_dir}", :force=>true if blog_index_dir != source_dir
-  cp "#{source_dir}.old/index.html", source_dir if blog_index_dir != source_dir && File.exists?("#{source_dir}.old/index.html")
-  puts "## Updated #{source_dir} ##"
-end
-
 ##############
 # Deploying  #
 ##############
@@ -256,14 +219,6 @@ task :set_root_dir, :dir do |t, args|
     rakefile.sub!(/public_dir(\s*)=(\s*)(["'])[\w\-\/]*["']/, "public_dir\\1=\\2\\3public#{dir}\\3")
     File.open(__FILE__, 'w') do |f|
       f.write rakefile
-    end
-    compass_config = IO.read('config.rb')
-    compass_config.sub!(/http_path(\s*)=(\s*)(["'])[\w\-\/]*["']/, "http_path\\1=\\2\\3#{dir}/\\3")
-    compass_config.sub!(/http_images_path(\s*)=(\s*)(["'])[\w\-\/]*["']/, "http_images_path\\1=\\2\\3#{dir}/images\\3")
-    compass_config.sub!(/http_fonts_path(\s*)=(\s*)(["'])[\w\-\/]*["']/, "http_fonts_path\\1=\\2\\3#{dir}/fonts\\3")
-    compass_config.sub!(/css_dir(\s*)=(\s*)(["'])[\w\-\/]*["']/, "css_dir\\1=\\2\\3public#{dir}/_assets/stylesheets\\3")
-    File.open('config.rb', 'w') do |f|
-      f.write compass_config
     end
     jekyll_config = IO.read('_config.yml')
     jekyll_config.sub!(/^destination:.+$/, "destination: public#{dir}")
