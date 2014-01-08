@@ -1,5 +1,5 @@
 #= require vendor/jquery-1.10.2
-#= require bootstrap/dist/js/bootstrap
+#= require sass-bootstrap/bower_components/sass-bootstrap/dist/js/bootstrap
 #= require vendor/modernizr-2.0
 #= require vendor/jqBootstrapValidation-1.3.7
 #= require vendor/lunr
