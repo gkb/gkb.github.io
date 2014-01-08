@@ -23,7 +23,8 @@ Bootpress is more opinionated than Octopress
    business email on the site
 
 ## Todos
-1. Make the search box in the nav bar and the contact popover responsive
+1. Refactor octopress.js and remove duplication of javascripts in
+`source/_assets/javascripts/libs`
 
 ## Documentation
 
