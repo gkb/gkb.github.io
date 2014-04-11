@@ -12,6 +12,7 @@ Bootpress is [Jekyll](https://github.com/mojombo/jekyll) blogging combined with 
 
 ## How is this different from Octopress?
 Bootpress is more opinionated than Octopress
+
 1. Uses Bootstrap exclusively for both defaults and customization
 2. Includes the Sass source files for Bootstrap and a pre-configured set
    of themes from Bootswatch-Sass

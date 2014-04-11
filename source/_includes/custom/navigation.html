@@ -12,10 +12,10 @@
         <div class="navbar-collapse collapse">
             <ul class="nav navbar-nav">
                 <li {% if page.navbar == 'Blog' %}class="active"{% endif %}>
-                    <a href="{{ root_url }}/blog">Blog</a>
+                    <a href="{{ root_url }}/">Blog</a>
                 </li>
                 <li {% if page.navbar == 'Archives' %}class="active"{% endif %}>
-                    <a href="{{ root_url }}/blog/archives">Archives</a>
+                    <a href="{{ root_url }}/archives">Archives</a>
                 </li>
                 <li {% if page.navbar == 'Contact' %}class="active"{% endif %}>
                     <a class="contact-popover" href="#" data-placement='bottom' data-html='true'>Contact</a>
@@ -40,7 +40,8 @@
             {% if site.simple_search %}
                 <div class="nav navbar-nav navbar-right" style="position: relative">
                     <input type="text" id="search-query" class="typeahead tt-query" name="q" placeholder="Search" autocomplete="off">
-                    <section id="search-results" class="tt-dropdown-menu" style="display: none; position: absolute; z-index:1">
+                    <section id="search-results" class="tt-dropdown-menu"
+                        style="display: none; position: absolute; z-index:100">
                         <div class="entries tt-suggestions">
                         </div>
                     </section>
