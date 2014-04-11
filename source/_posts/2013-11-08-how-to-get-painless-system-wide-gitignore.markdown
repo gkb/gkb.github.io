@@ -32,8 +32,8 @@ mention the fact as the value of the property
 it has the advance of being explicit, it adds one
 more file to the already large number of hidden
 files in my `$HOME` directory. On the other hand,
-the `$HOME/.config` can be used by other programs
-to store settings, and they do, thus saving you multiple entries
+the `$HOME/.config` is more general than git and is used by other programs
+to store settings, thus saving you multiple entries
 in your home directory.
 
 Here's a quote from the [man page for
